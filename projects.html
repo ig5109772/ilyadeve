@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проекты & Архитектура — Гончаров Илья</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            linear: {
+              bg: '#08090a',
+              card: '#0d0e14',
+              surface: '#12131a',
+              border: 'rgba(255, 255, 255, 0.08)',
+              hover: 'rgba(255, 255, 255, 0.16)',
+              primary: '#5e6ad2',
+              'primary-hover': '#6875e5',
+              text: '#f7f8f8',
+              muted: '#9da3af',
+              subtle: '#cbd5e1'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #08090a;
+      color: #f7f8f8;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      letter-spacing: -0.015em;
+    }
+
+    .linear-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 50%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 50%, transparent 100%);
+    }
+
+    .linear-card {
+      position: relative;
+      background: rgba(13, 14, 20, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    
+    .linear-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(94, 106, 210, 0.15), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .linear-card:hover::before {
+      opacity: 1;
+    }
+
+    .linear-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(94, 106, 210, 0.2);
+    }
+
+    .btn-linear-primary {
+      background: #5e6ad2;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(94, 106, 210, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: all 0.2s ease;
+    }
+    .btn-linear-primary:hover {
+      background: #6875e5;
+      box-shadow: 0 0 28px rgba(94, 106, 210, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-linear-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: #b4bcd0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+    .btn-linear-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-[#5e6ad2] selection:text-white relative font-sans flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Top Cosmic Aurora -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-[#5e6ad2]/20 via-[#4f52b2]/10 to-transparent blur-[130px] pointer-events-none -z-10"></div>
+  <div class="fixed inset-0 linear-grid pointer-events-none -z-10"></div>
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#08090a]/80 border-b border-white/[0.08] transition-colors">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center font-mono font-bold text-xs text-white group-hover:border-[#5e6ad2] group-hover:shadow-[0_0_15px_rgba(94,106,210,0.4)] transition-all">
+          ИГ
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-sm tracking-tight text-[#f7f8f8] leading-none group-hover:text-[#5e6ad2] transition-colors">
+            Гончаров Илья
+          </span>
+          <span class="text-xs text-zinc-400 font-mono mt-0.5">Разработка под ключ</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 text-xs font-medium">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Главная
+        </a>
+        <a href="projects.html" class="px-3 py-1.5 rounded-lg bg-white/[0.08] text-white font-semibold border border-white/10 shadow-sm transition-colors">
+          Проекты
+        </a>
+        <a href="about.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Обо мне & Стек
+        </a>
+        <a href="contact.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Контакты
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://t.me/ilyadeve" target="_blank" class="inline-flex items-center gap-1.5 btn-linear-primary px-4 py-2 rounded-lg text-xs font-medium">
+          Telegram →
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex-grow py-14">
+    
+    <!-- Page Header -->
+    <div class="max-w-3xl mb-12 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-[#5e6ad2]/15 text-[#818cf8] border border-[#5e6ad2]/30">
+        <span>Каталог разработок</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] text-[#f7f8f8]">
+        Проекты & Архитектурные решения
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-300 leading-relaxed">
+        Полные технические паспорта боевых систем: от международной платформы для брокера бурового оборудования из США до нативных десктопных решений на C# / .NET и отказоустойчивых ботов.
+      </p>
+
+      <!-- Linear Category Filter Pills -->
+      <div class="flex flex-wrap gap-2 pt-2 text-xs font-mono">
+        <button onclick="filterProjects('all')" class="filter-btn px-4 py-2 rounded-lg bg-white/[0.1] text-white border border-white/20 font-medium transition-all" data-category="all">
+          Все проекты (4)
+        </button>
+        <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 rounded-lg btn-linear-secondary text-zinc-300 hover:text-white transition-all" data-category="web">
+          Веб-разработка (США)
+        </button>
+        <button onclick="filterProjects('desktop')" class="filter-btn px-4 py-2 rounded-lg btn-linear-secondary text-zinc-300 hover:text-white transition-all" data-category="desktop">
+          Десктоп (C# / WPF)
+        </button>
+        <button onclick="filterProjects('bots')" class="filter-btn px-4 py-2 rounded-lg btn-linear-secondary text-zinc-300 hover:text-white transition-all" data-category="bots">
+          Telegram & Сервисы
+        </button>
+      </div>
+    </div>
+
+    <!-- Projects List -->
+    <div class="space-y-10">
+
+      <!-- ====================================================
+           PROJECT 1: JEFF WEBER & ASSOCIATES (USA)
+      ==================================================== -->
+      <article id="jeff-weber" class="project-item linear-card p-6 sm:p-8 space-y-6" data-category="web">
+        
+        <!-- Header & Badges -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#5e6ad2]/15 text-[#818cf8] border border-[#5e6ad2]/30">
+              ⭐ Коммерческий контракт (США)
+            </span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Production Live
+            </span>
+          </div>
+          <div class="text-xs font-mono text-zinc-400">Штат Делавэр, США · Удалённая разработка</div>
+        </div>
+
+        <!-- Title & Subtitle -->
+        <div class="space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Jeff Weber and Associates — Brokerage Platform
+          </h2>
+          <p class="text-sm sm:text-base font-medium text-zinc-200">
+            Брокерская веб-платформа бурового и нефтегазового оборудования тяжелого класса
+          </p>
+        </div>
+
+        <!-- Business Context & Metrics Box -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-[#818cf8] block mb-1">🎯 Бизнес-задача:</strong>
+            Американской компании-брокеру требовалось создать современную цифровую витрину промышленного оборудования тяжелого класса с возможностью удобного добавления сотен агрегатов и сбором брокерских лидов от заказчиков по всему миру.
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-500/[0.05] border border-emerald-500/20 text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-emerald-400 block mb-1">📈 Результат в цифрах:</strong>
+            0 ошибок при модерации сотен позиций техники, моментальная загрузка каталога буровых агрегатов в США и автоматическая маршрутизация лидов брокерам.
+          </div>
+        </div>
+
+        <!-- Interactive Browser Preview Mockup -->
+        <div class="rounded-xl bg-[#090a0f] border border-white/10 overflow-hidden shadow-2xl">
+          <div class="h-10 bg-white/[0.03] border-b border-white/[0.08] px-3.5 flex items-center justify-between text-xs font-mono text-zinc-400">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+            </div>
+            <!-- Mockup URL bar (No external link) -->
+            <div class="px-4 py-1.5 rounded-md bg-black/60 border border-white/10 text-xs flex items-center gap-2 text-zinc-300 max-w-[280px] truncate font-mono">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>jeff-weber · Production System</span>
+            </div>
+            <div class="text-xs text-zinc-400 font-mono">ENTERPRISE PLATFORM</div>
+          </div>
+
+          <!-- Mockup View Content -->
+          <div class="p-5 bg-gradient-to-br from-zinc-950 to-zinc-900 text-xs space-y-3 font-sans">
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <div class="font-bold text-white tracking-wider flex items-center gap-2">
+                <span class="text-[#818cf8]">JEFF WEBER</span>
+                <span class="text-xs font-mono text-zinc-400 font-normal">| Drilling Brokerage</span>
+              </div>
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-[#5e6ad2]/20 text-[#818cf8]">Live Production</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 py-2 font-mono">
+              <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 space-y-1">
+                <div class="text-xs text-zinc-400">Каталог техники</div>
+                <div class="font-bold text-white text-xs sm:text-sm">Mud Pumps, BOPs, Rigs</div>
+              </div>
+              <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 space-y-1">
+                <div class="text-xs text-zinc-400">Админка</div>
+                <div class="font-bold text-white text-xs sm:text-sm">Custom Django Admin</div>
+              </div>
+              <div class="p-3 rounded-lg bg-white/[0.03] border border-white/5 space-y-1">
+                <div class="text-xs text-zinc-400">СУБД</div>
+                <div class="font-bold text-white text-xs sm:text-sm">PostgreSQL</div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-1 text-xs font-mono">
+              <span class="text-zinc-400">США • Штат Делавэр</span>
+              <span class="text-emerald-400 font-semibold">● 100% Успешный деплой</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Modules Breakdown -->
+        <div class="space-y-3 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">
+            Архитектурные модули и функционал:
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">1</span>
+                <span class="text-sm sm:text-base font-bold text-white">Кастомная панель управления (Django Admin)</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Глубокая кастомизация стандартного интерфейса Django: разработана корпоративная брендовая тема оформления с поддержкой Dark/Light режимов, адаптированы хлебные крошки (breadcrumbs), таблицы моделей и форма модерации. Секретариат компании может легко загружать фото, прописывать серийные номера и обновлять статусы доступности техники.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">2</span>
+                <span class="text-sm sm:text-base font-bold text-white">Каталог оборудования и витрина</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Структурированный многоуровневый каталог: буровые вышки, роторные столы, буровые насосы, силовые приводы (Top Drives), противовыбросовые превенторы (BOP), дизельные генераторы. Каждая карточка содержит полный паспорт оборудования, технические характеристики и форму связи.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">3</span>
+                <span class="text-sm sm:text-base font-bold text-white">Система лидогенерации и запросов</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Интерактивные формы обратной связи с валидацией полей, фиксацией контактных данных клиентов и автоматической маршрутизацией заявок брокерам компании.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">4</span>
+                <span class="text-sm sm:text-base font-bold text-white">Деплой и сопровождение (Production)</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Конфигурация боевого сервера в доменной зоне .net, сборка статических файлов (CSS/JS/SVG), оптимизация реляционной базы данных и поддержка доступности 24/7.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Tags -->
+        <div class="space-y-2 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">Стек технологий:</h3>
+          <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">Python 3.11</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">Django</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">Django Admin Custom UI</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">PostgreSQL</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">JavaScript</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">Gunicorn</span>
+          </div>
+        </div>
+
+        <!-- Status & Direct Consultation CTA -->
+        <div class="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
+          <div class="flex items-center gap-2 text-zinc-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>Коммерческий проект сдан и находится в эксплуатации (США)</span>
+          </div>
+          <a href="https://t.me/ilyadeve?text=Здравствуйте!%20Хочу%20обсудить%20проект%20подобного%20уровня." target="_blank" class="btn-linear-primary inline-flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium">
+            <span>Заказать аналогичный проект →</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+      </article>
+
+      <!-- ====================================================
+           PROJECT 2: CARGODISPATCHER (C# / WPF / .NET)
+      ==================================================== -->
+      <article id="cargo-dispatcher" class="project-item linear-card p-6 sm:p-8 space-y-6" data-category="desktop">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-[#5e6ad2]/15 text-[#818cf8] border border-[#5e6ad2]/25">
+              Десктоп приложение (C# / WPF)
+            </span>
+            <span class="text-xs font-mono text-zinc-400">.NET 8 · XAML · MVVM</span>
+          </div>
+          <div class="text-xs font-mono text-zinc-400">Логистика и транспорт</div>
+        </div>
+
+        <div class="space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            CargoDispatcher — Логистическая система диспетчеризации
+          </h2>
+          <p class="text-sm sm:text-base font-medium text-zinc-200">
+            Автоматизация логистического учета, распределения грузов и контроля автопарка
+          </p>
+        </div>
+
+        <!-- Business Context & Metrics Box -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-[#818cf8] block mb-1">🎯 Бизнес-задача:</strong>
+            Транспортным компаниям необходимо минимизировать человеческий фактор при распределении грузоперевозок, исключить перегруз автотранспорта, контролировать доступность водителей и точно рассчитывать стоимость рейсов по тарифам.
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-500/[0.05] border border-emerald-500/20 text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-emerald-400 block mb-1">📈 Результат в цифрах:</strong>
+            100% защита от перегруза машин автопарка благодаря программному барьеру MaxCapacityKg Guard и мгновенный расчёт стоимости рейса.
+          </div>
+        </div>
+
+        <!-- Windows App Mockup Window -->
+        <div class="rounded-xl bg-[#090a0f] border border-white/10 overflow-hidden text-xs">
+          <div class="h-9 bg-white/[0.03] border-b border-white/[0.08] px-3.5 flex items-center justify-between font-mono text-xs text-zinc-400">
+            <div class="flex items-center gap-2">
+              <span class="text-[#818cf8]">🚛</span>
+              <span class="text-white font-medium">CargoDispatcher [WPF System]</span>
+            </div>
+            <div class="flex items-center gap-3 text-zinc-500">
+              <span>—</span>
+              <span>□</span>
+              <span class="text-rose-400">✕</span>
+            </div>
+          </div>
+
+          <div class="p-4 space-y-2.5 font-mono text-xs">
+            <div class="flex justify-between items-center text-zinc-400 border-b border-white/5 pb-2">
+              <span>Жизненный цикл заказа:</span>
+              <span class="text-emerald-400 font-semibold">Создан → Назначен → В пути → Доставлен</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-zinc-200">
+              <div class="p-3 bg-white/[0.02] rounded border border-white/5 space-y-1">
+                <span class="text-zinc-400 block text-xs">Тарификация:</span>
+                <span class="font-bold text-white text-xs sm:text-sm">TariffPerKm × Distance</span>
+              </div>
+              <div class="p-3 bg-white/[0.02] rounded border border-white/5 space-y-1">
+                <span class="text-zinc-400 block text-xs">Валидация веса:</span>
+                <span class="text-amber-400 font-bold text-xs sm:text-sm">MaxCapacityKg Guard</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modules Breakdown -->
+        <div class="space-y-3 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">
+            Модули и функциональная архитектура:
+          </h3>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">1</span>
+                <span class="text-sm sm:text-base font-bold text-white">Модуль заказов (Order Lifecycle)</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Создание рейсов с указанием пунктов маршрута («Откуда» — «Куда»), расстояния, описания груза, веса и контактов заказчика. Жизненный цикл: Создан → Назначен → В пути → Доставлен → Отменен. Фиксация повреждений груза (HasDamage, DamageNotes).
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">2</span>
+                <span class="text-sm sm:text-base font-bold text-white">Модуль автопарка и весовой барьер</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Учет транспортных средств (модель, госномер, предельная грузоподъемность MaxCapacityKg, доступность IsAvailable). Автоматическая блокировка назначения рейсов при превышении максимального допустимого веса.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">3</span>
+                <span class="text-sm sm:text-base font-bold text-white">Водители и путевые карточки</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Учет водителей (ФИО, телефон, активность IsActive). При назначении водителя на рейс формируется интерактивная путевая карточка (AssignWindow).
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-[#5e6ad2]/15 text-[#818cf8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#5e6ad2]/30">4</span>
+                <span class="text-sm sm:text-base font-bold text-white">Складской учет и автотарификация</span>
+              </div>
+              <p class="text-sm text-zinc-300 pl-8 leading-relaxed">
+                Складской учет (WarehouseItem) с контролем остатков. Автоматический подсчет стоимости перевозки: Расстояние (км) × Текущая ставка тарифа компании.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">Стек технологий:</h3>
+          <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">C#</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">.NET 8</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">WPF</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">XAML</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">MVVM</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08] font-medium">DataService</span>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ====================================================
+           PROJECT 3: COLLEGE ADMISSIONS BOT (УО «ГГМК»)
+      ==================================================== -->
+      <article id="college-bot" class="project-item linear-card p-6 sm:p-8 space-y-6" data-category="bots">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+              Telegram Бот / Сервис
+            </span>
+            <span class="text-xs font-mono text-zinc-400">Python · Aiogram 3 · Docker</span>
+          </div>
+          <div class="text-xs font-mono text-zinc-400">УО «ГГМК»</div>
+        </div>
+
+        <div class="space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Бот Приёмной комиссии (УО «ГГМК»)
+          </h2>
+          <p class="text-sm sm:text-base font-medium text-zinc-200">
+            Интеллектуальный ассистент абитуриентов колледжа с автоматизацией обратной связи
+          </p>
+        </div>
+
+        <!-- Business Context & Metrics Box -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-emerald-400 block mb-1">🎯 Бизнес-задача:</strong>
+            Во время вступительной кампании сотрудники приёмной комиссии перегружены сотнями однотипных звонков и вопросов об условиях поступления, проходных баллах, справках и общежитии.
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-500/[0.05] border border-emerald-500/20 text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-emerald-400 block mb-1">📈 Результат в цифрах:</strong>
+            Снижение телефонной нагрузки на секретариат на ~70% в пик приёмной кампании за счёт мгновенных автоматических ответов и связи через Telegram Reply.
+          </div>
+        </div>
+
+        <!-- Chat Mockup -->
+        <div class="rounded-xl bg-[#090a0f] border border-white/10 p-4 space-y-3 text-xs sm:text-sm font-sans max-w-lg">
+          <div class="bg-white/[0.04] p-3.5 rounded-xl rounded-tl-none border border-white/10 text-zinc-200">
+            <div class="text-xs font-mono text-[#818cf8] mb-1">Абитуриент:</div>
+            Какой проходной балл на специальность РСПОИС после 9 классов?
+          </div>
+          <div class="bg-[#5e6ad2]/25 p-3.5 rounded-xl rounded-tr-none border border-[#5e6ad2]/40 text-white ml-auto">
+            <div class="text-xs font-mono text-emerald-400 mb-1">Секретарь (через обычный Reply в Telegram):</div>
+            Средний балл свидетельства в прошлом году — 8.4. Общежитие предоставляется всем иногородним.
+          </div>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">
+            Ключевые возможности:
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-1.5">
+              <span class="text-sm sm:text-base font-bold text-white">Двусторонняя связь через Reply</span>
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                Секретариату не нужно заходить в сторонние панели: достаточно нажать «Ответить» (Reply) на сообщение бота в Telegram, и ответ мгновенно уходит абитуриенту.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-1.5">
+              <span class="text-sm sm:text-base font-bold text-white">Динамическая база FAQ (SQLite)</span>
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                Интерактивный каталог специальностей, проходных баллов и ответов на частые вопросы. Обновление информации на лету без перезапуска сервиса.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">Стек:</h3>
+          <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">Python 3.12</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">Aiogram 3.x</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">SQLite</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">Docker</span>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ====================================================
+           PROJECT 4: TELEGRAM DIARY & NLP REMINDERS
+      ==================================================== -->
+      <article id="diary-bot" class="project-item linear-card p-6 sm:p-8 space-y-6" data-category="bots">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/25">
+              Персональный органайзер & NLP
+            </span>
+            <span class="text-xs font-mono text-zinc-400">APScheduler · SQLite</span>
+          </div>
+          <div class="text-xs font-mono text-zinc-400">Приватный ассистент</div>
+        </div>
+
+        <div class="space-y-2">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Telegram Diary & Reminders Bot
+          </h2>
+          <p class="text-sm sm:text-base font-medium text-zinc-200">
+            Приватный органайзер с NLP-парсером времени, медиаархивом и трекером настроения
+          </p>
+        </div>
+
+        <!-- Business Context & Metrics Box -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-amber-400 block mb-1">🎯 Бизнес-задача:</strong>
+            Необходимость в быстром, полностью приватном инструменте, куда можно на ходу отправлять мысли, голосовые сообщения и фото, не боясь утечки данных, и получать многоуровневые напоминания о дедлайнах.
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-500/[0.05] border border-emerald-500/20 text-sm text-zinc-200 leading-relaxed">
+            <strong class="font-bold text-emerald-400 block mb-1">📈 Результат в цифрах:</strong>
+            100% приватность персональных данных через OWNER_ID Guard и 0 пропущенных дедлайнов благодаря 3-уровневой системе срочных алертов APScheduler.
+          </div>
+        </div>
+
+        <div class="p-4 bg-black/40 rounded-xl border border-white/10 font-mono text-xs sm:text-sm space-y-2 text-zinc-200">
+          <div class="text-zinc-400">Парсинг естественного языка:</div>
+          <div class="text-amber-400">/remind 15m Выпить таблетку</div>
+          <div class="text-[#818cf8]">/urgent 21:00 Сдать проект (напоминания за 5ч, 1ч, вовремя)</div>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">
+            Ключевые возможности:
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-1.5">
+              <span class="text-sm sm:text-base font-bold text-white">3-уровневые срочные напоминания</span>
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                Планировщик APScheduler отправляет предупреждения за 5 часов, за 1 час и финально точно в дедлайн.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] space-y-1.5">
+              <span class="text-sm sm:text-base font-bold text-white">OWNER_ID Guard (100% приватность)</span>
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                Фильтрация на уровне middleware отсекает любые попытки доступа неавторизованных пользователей.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <h3 class="text-xs font-mono uppercase tracking-widest text-[#818cf8] font-semibold">Стек:</h3>
+          <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">Python 3.12</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">Aiogram 3.x</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">APScheduler</span>
+            <span class="px-2.5 py-1 rounded bg-white/[0.04] text-zinc-200 border border-white/[0.08]">aiosqlite</span>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-white/[0.08] py-8 text-xs font-mono text-zinc-400 mt-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 Гончаров Илья Витальевич · УО «ГГМК» (РСПОИС)</div>
+      <div class="flex items-center gap-5">
+        <a href="index.html" class="hover:text-white transition-colors">Главная</a>
+        <a href="about.html" class="hover:text-white transition-colors">Обо мне</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Spotlight Effect
+    document.querySelectorAll('.linear-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    // Project Filter Logic
+    function filterProjects(cat) {
+      const items = document.querySelectorAll('.project-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-category') === cat) {
+          btn.className = "filter-btn px-3.5 py-1.5 rounded-lg bg-white/[0.1] text-white border border-white/15 font-medium transition-all";
+        } else {
+          btn.className = "filter-btn px-3.5 py-1.5 rounded-lg btn-linear-secondary transition-all";
+        }
+      });
+
+      items.forEach(item => {
+        if (cat === 'all' || item.getAttribute('data-category') === cat) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

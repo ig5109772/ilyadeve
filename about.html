@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обо мне & Стек — Гончаров Илья</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            linear: {
+              bg: '#08090a',
+              card: '#0d0e14',
+              surface: '#12131a',
+              border: 'rgba(255, 255, 255, 0.08)',
+              hover: 'rgba(255, 255, 255, 0.16)',
+              primary: '#5e6ad2',
+              'primary-hover': '#6875e5',
+              text: '#f7f8f8',
+              muted: '#9da3af',
+              subtle: '#cbd5e1'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #08090a;
+      color: #f7f8f8;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      letter-spacing: -0.015em;
+    }
+
+    .linear-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 50%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, #000 50%, transparent 100%);
+    }
+
+    .linear-card {
+      position: relative;
+      background: rgba(13, 14, 20, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    
+    .linear-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(94, 106, 210, 0.15), transparent 40%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .linear-card:hover::before {
+      opacity: 1;
+    }
+
+    .linear-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(94, 106, 210, 0.2);
+    }
+
+    .btn-linear-primary {
+      background: #5e6ad2;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(94, 106, 210, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      transition: all 0.2s ease;
+    }
+    .btn-linear-primary:hover {
+      background: #6875e5;
+      box-shadow: 0 0 28px rgba(94, 106, 210, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-linear-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: #b4bcd0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+    .btn-linear-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen selection:bg-[#5e6ad2] selection:text-white relative font-sans flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Top Cosmic Aurora -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-[#5e6ad2]/20 via-[#4f52b2]/10 to-transparent blur-[130px] pointer-events-none -z-10"></div>
+  <div class="fixed inset-0 linear-grid pointer-events-none -z-10"></div>
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#08090a]/80 border-b border-white/[0.08] transition-colors">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center font-mono font-bold text-xs text-white group-hover:border-[#5e6ad2] group-hover:shadow-[0_0_15px_rgba(94,106,210,0.4)] transition-all">
+          ИГ
+        </div>
+        <div class="flex flex-col">
+          <span class="font-semibold text-sm tracking-tight text-[#f7f8f8] leading-none group-hover:text-[#5e6ad2] transition-colors">
+            Гончаров Илья
+          </span>
+          <span class="text-xs text-zinc-400 font-mono mt-0.5">Разработка под ключ</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 text-xs font-medium">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Главная
+        </a>
+        <a href="projects.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Проекты
+        </a>
+        <a href="about.html" class="px-3 py-1.5 rounded-lg bg-white/[0.08] text-white font-semibold border border-white/10 shadow-sm transition-colors">
+          Обо мне & Стек
+        </a>
+        <a href="contact.html" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.04] transition-colors">
+          Контакты
+        </a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://t.me/ilyadeve" target="_blank" class="inline-flex items-center gap-1.5 btn-linear-primary px-4 py-2 rounded-lg text-xs font-medium">
+          Telegram →
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full flex-grow py-14">
+    
+    <!-- Hero / Intro -->
+    <div class="max-w-3xl mb-12 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono bg-[#5e6ad2]/15 text-[#818cf8] border border-[#5e6ad2]/30">
+        <span>Инженерный профиль</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-[-0.03em] text-[#f7f8f8]">
+        Обо мне & Технологический арсенал
+      </h1>
+      <p class="text-base sm:text-lg text-zinc-300 leading-relaxed">
+        Гончаров Илья Витальевич — программист и Fullstack-разработчик. Специализируюсь на создании быстрых продающих сайтов, веб-платформ с кастомными панелями управления под ключ на любых языках и разработке нативных десктопных приложений (C#, Java, JavaScript).
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Education & Bio (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- College Card -->
+        <div class="linear-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-xl shrink-0">
+              🎓
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-white">Образование</h2>
+              <span class="text-xs font-mono text-zinc-400">2022 — 2026 (3 курс)</span>
+            </div>
+          </div>
+
+          <div class="space-y-2 text-sm text-zinc-300 leading-relaxed border-t border-white/[0.08] pt-4">
+            <div class="font-semibold text-white">
+              УО «ГГМК» (Гомельский государственный машиностроительный колледж)
+            </div>
+            <div>
+              <strong class="text-white">Специальность:</strong> Разработка и сопровождение программного обеспечения информационных систем (РСПОИС).
+            </div>
+            <div>
+              <strong class="text-white">Квалификация:</strong> Программист.
+            </div>
+            <div>
+              <strong class="text-white">Форма обучения:</strong> Дневное отделение, бюджет.
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages & Soft Skills -->
+        <div class="linear-card p-6 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-xl shrink-0">
+              🌍
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-white">Языковая подготовка</h2>
+              <span class="text-xs font-mono text-[#818cf8] font-semibold">Уровень B2</span>
+            </div>
+          </div>
+
+          <p class="text-sm text-zinc-300 leading-relaxed border-t border-white/[0.08] pt-4">
+            Уверенно читаю англоязычную техническую документацию (RFC, спецификации фреймворков, API), веду переписку по техническим заданиям и спринтам с зарубежными заказчиками (опыт работы с клиентами из США).
+          </p>
+        </div>
+
+        <!-- Work Principles -->
+        <div class="linear-card p-6 space-y-3 font-mono text-xs">
+          <h2 class="font-bold text-white font-sans text-sm">Инженерные принципы</h2>
+          <div class="space-y-2.5 text-zinc-300">
+            <div class="flex items-start gap-2">
+              <span class="text-[#818cf8] font-bold">✓</span>
+              <span><strong class="text-white">SOLID & Архитектура:</strong> модульность, слабая связанность и чистые интерфейсы.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-[#818cf8] font-bold">✓</span>
+              <span><strong class="text-white">Под ключ:</strong> от проектирования схемы БД до деплоя и мониторинга 24/7.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-[#818cf8] font-bold">✓</span>
+              <span><strong class="text-white">Чистый код:</strong> строгая типизация, валидация данных и отсутствие магии.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Deep Tech Stack Matrix (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Web Development Section -->
+        <div class="linear-card p-6 sm:p-7 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">⚡</span>
+              <div>
+                <h2 class="text-base sm:text-lg font-bold text-white">Веб-разработка любой сложности</h2>
+                <span class="text-xs font-mono text-zinc-400">Мультиязычный агностический стек</span>
+              </div>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-[#5e6ad2]/15 text-[#818cf8] border border-[#5e6ad2]/30">Под ключ</span>
+          </div>
+
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Разрабатываю веб-решения под требования проекта на любых современных языках: Python, JavaScript/TypeScript, PHP, C#. Создаю как легковесные продающие порталы, так и масштабные платформы с развитыми панелями администрирования.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono pt-1">
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Бэкенд & ORM</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Django, Django Admin, REST API, Node.js</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Фронтенд & Стилизация</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">JavaScript (ES6+), HTML5/CSS3, Tailwind CSS</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">CMS & Custom Admin</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Кастомные темы, breadcrumbs, модерация</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Интеграции</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Лидогенерация, формы, парсеры, вебхуки</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Development Section -->
+        <div class="linear-card p-6 sm:p-7 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">🖥️</span>
+              <div>
+                <h2 class="text-base sm:text-lg font-bold text-white">Десктопные приложения</h2>
+                <span class="text-xs font-mono text-zinc-400">Нативное системное ПО для Windows & кроссплатформа</span>
+              </div>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">Нативно</span>
+          </div>
+
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Разработка отказоустойчивых настольных решений для бизнеса: автоматизация диспетчеризации, логистика, складской учет, валидация данных в реальном времени.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono pt-1">
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">C# & .NET</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">WPF, XAML, MVVM, Data Binding, LINQ</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Java & Electron</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Java Desktop (Core/Swing), Electron.js</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Сервисный слой</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">DataService, DatabaseState, валидация веса</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Многопоточность</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">async / await, фоновые задачи (Tasks)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Databases & Infrastructure Section -->
+        <div class="linear-card p-6 sm:p-7 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">🗄️</span>
+              <div>
+                <h2 class="text-base sm:text-lg font-bold text-white">Базы данных & Инфраструктура</h2>
+                <span class="text-xs font-mono text-zinc-400">Надежность, транзакции и деплой</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono pt-1">
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">СУБД</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">PostgreSQL, SQLite, реляционные связи</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">DevOps & Деплой</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Docker, Gunicorn, Nginx, Linux, Windows</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Контроль версий</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Git, ветвление, фиксация коммитов</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] border border-white/5 space-y-1">
+              <span class="text-zinc-400 text-xs block">Боты & Очереди</span>
+              <div class="text-zinc-200 font-medium text-xs sm:text-sm">Aiogram 3, APScheduler, Telegram Reply</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="mt-12 pt-8 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+      <a href="projects.html" class="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#818cf8] hover:text-[#a5b4fc] hover:underline">
+        <span>← Посмотреть все проекты в каталоге</span>
+      </a>
+      <a href="contact.html" class="btn-linear-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-mono text-xs font-medium">
+        <span>Связаться для обсуждения задачи →</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-white/[0.08] py-8 text-xs font-mono text-zinc-400 mt-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 Гончаров Илья Витальевич · УО «ГГМК» (РСПОИС)</div>
+      <div class="flex items-center gap-5">
+        <a href="index.html" class="hover:text-white transition-colors">Главная</a>
+        <a href="projects.html" class="hover:text-white transition-colors">Проекты</a>
+        <a href="contact.html" class="hover:text-white transition-colors">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.linear-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  </script>
+
+</body>
+</html>
