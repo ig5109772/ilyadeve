@@ -172,13 +172,51 @@
         </a>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-3">
-        <a href="https://t.me/ilyadeve" target="_blank" class="inline-flex items-center gap-1.5 btn-linear-primary px-4 py-2 rounded-lg text-xs font-medium">
-          Обсудить проект →
+      <!-- Action Buttons & Mobile Hamburger -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://t.me/ilyadeve" target="_blank" class="inline-flex items-center gap-1.5 btn-linear-primary px-3 sm:px-4 py-2 rounded-lg text-xs font-medium">
+          <span>Обсудить</span><span class="hidden sm:inline"> проект</span> →
         </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" aria-label="Открыть меню" class="md:hidden w-9 h-9 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-white/[0.1] transition-all">
+          <svg id="burgerIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
 
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/[0.08] bg-[#08090a]/95 backdrop-blur-2xl px-4 py-4 space-y-1 text-sm font-medium">
+      <a href="index.html" class="block px-3.5 py-2.5 rounded-lg bg-white/[0.08] text-white font-semibold">
+        Главная
+      </a>
+      <a href="#services" class="mobile-nav-link block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Услуги
+      </a>
+      <a href="projects.html" class="block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Кейсы & Проекты
+      </a>
+      <a href="#workflow" class="mobile-nav-link block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Этапы работы
+      </a>
+      <a href="#guarantees" class="mobile-nav-link block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Гарантии
+      </a>
+      <a href="#faq" class="mobile-nav-link block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        FAQ
+      </a>
+      <a href="about.html" class="block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Обо мне
+      </a>
+      <a href="contact.html" class="block px-3.5 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/[0.05]">
+        Контакты
+      </a>
     </div>
   </header>
 
@@ -909,8 +947,9 @@
     </div>
   </footer>
 
-  <!-- Spotlight Script -->
+  <!-- Spotlight & Mobile Menu Script -->
   <script>
+    // Spotlight Effect
     document.querySelectorAll('.linear-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -918,6 +957,28 @@
         card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
       });
     });
+
+    // Mobile Hamburger Menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const burgerIcon = document.getElementById('burgerIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        burgerIcon.classList.toggle('hidden', !isHidden);
+        closeIcon.classList.toggle('hidden', isHidden);
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          burgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
+      });
+    }
   </script>
 
 </body>
